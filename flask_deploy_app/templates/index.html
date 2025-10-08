@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{NOMBRE_PRODUCTO}} — Landing BAB</title>
+  <meta name="description" content="Landing page con marco BAB (Antes-Después-Puente) para {{NOMBRE_PRODUCTO}}.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0a0b10;
+      --bg-2: #0f1321;
+      --txt: #e7eaf2;
+      --muted: #9aa3b2;
+      --primary: #7c5cff; /* violeta neón */
+      --accent: #00e0ff;  /* cian neón */
+      --success: #45f39a;
+      --danger: #ff5577;
+      --glass: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --radius: 18px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.15), transparent 60%),
+                                        radial-gradient(900px 600px at -10% 100%, rgba(0,224,255,.12), transparent 60%),
+                                        var(--bg);color:var(--txt);font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+    .grid-bg:before{content:"";position:fixed;inset:0;pointer-events:none;background:
+      linear-gradient(transparent 95%, rgba(255,255,255,.06) 96%),
+      linear-gradient(90deg, transparent 95%, rgba(255,255,255,.06) 96%);
+      background-size: 40px 40px; mask: radial-gradient(1000px 700px at 50% -20%, rgba(0,0,0,.7), transparent 70%);
+    }
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(10,11,16,.9), rgba(10,11,16,.4));backdrop-filter: blur(8px);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.5px}
+    .brand .logo{width:34px;height:34px;border-radius:12px;background:
+      radial-gradient(60% 60% at 30% 30%, var(--accent), transparent 60%),
+      radial-gradient(60% 60% at 70% 70%, var(--primary), transparent 60%),
+      linear-gradient(145deg, #151a2b, #0b0e17);
+      box-shadow: inset 0 2px 8px rgba(255,255,255,.05), 0 6px 14px rgba(124,92,255,.25);
+    }
+    .nav-cta{display:flex;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--border);background:var(--glass);padding:12px 16px;border-radius:14px;transition: all .22s ease;box-shadow:var(--shadow);font-weight:600}
+    .btn:hover{transform:translateY(-1px);border-color:rgba(124,92,255,.6)}
+    .btn.primary{background:linear-gradient(180deg, rgba(124,92,255,.35), rgba(124,92,255,.15));border-color:rgba(124,92,255,.6)}
+
+    /* Hero */
+    .hero{position:relative;padding:88px 0 48px}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center}
+    .hero-media{position:relative}
+    .hero-frame{position:relative;border-radius:24px;border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));box-shadow:var(--shadow);overflow:hidden}
+    .hero-frame:after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg, var(--accent), transparent)}
+    .hero-img{display:block;width:100%;height:auto;aspect-ratio: 4/3;object-fit:cover;filter:saturate(1.05) contrast(1.02)}
+    .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--glass);padding:8px 12px;border-radius:999px;font-size:12px;color:var(--muted)}
+    h1{font-family:Orbitron, Inter, sans-serif;font-size: clamp(36px, 4.6vw, 64px);line-height:1.04;margin:16px 0;letter-spacing:.4px}
+    .lead{font-size: clamp(16px, 1.6vw, 20px);color:var(--muted);max-width:800px}
+    .hero-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 0}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 10px;font-size:18px}
+    .card p{margin:0;color:var(--muted);font-size:15px}
+    .tag{font-size:11px;color:#b6bfe0;border:1px solid var(--border);padding:4px 8px;border-radius:999px;display:inline-block;margin-bottom:8px}
+    .icon{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:linear-gradient(145deg, rgba(124,92,255,.25), rgba(0,224,255,.15));display:inline-flex;align-items:center;justify-content:center;overflow:hidden;margin-right:8px}
+    .icon img{width:100%;height:100%;object-fit:cover}
+
+    /* Logo strip */
+    .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:18px 0 0;opacity:.9}
+    .logo-card{padding:10px;border:1px solid var(--border);border-radius:12px;background:var(--glass);display:flex;align-items:center;justify-content:center}
+    .logo-card img{max-width:100%;max-height:28px;opacity:.8}
+
+    /* After / Benefits */
+    .benefits{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:40px 0}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .kpi{padding:18px;background:linear-gradient(180deg, rgba(0,224,255,.15), rgba(255,255,255,.02));border:1px solid var(--border);border-radius:16px;text-align:center}
+    .kpi strong{font-size:28px;display:block}
+    .benefit-visual{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));box-shadow:var(--shadow)}
+    .benefit-visual img{display:block;width:100%;height:auto;aspect-ratio: 16/10;object-fit:cover}
+
+    /* Bridge / How it works */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+    .step{padding:22px;border:1px dashed rgba(255,255,255,.18);border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02))}
+    .step span{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:linear-gradient(180deg, rgba(124,92,255,.55), rgba(124,92,255,.25));margin-bottom:8px;font-weight:800}
+
+    /* USP */
+    .usp{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+    .usp .card{position:relative}
+    .usp .card:after{content:"";position:absolute;inset:auto auto 0 0;width:60%;height:2px;background:linear-gradient(90deg, var(--accent), transparent)}
+    .usp-img{width:100%;height:140px;border-radius:12px;border:1px solid var(--border);object-fit:cover;margin:10px 0 0}
+
+    /* Social proof */
+    .testis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+    .testi{padding:18px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02))}
+    .testi .who{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:14px;color:var(--muted)}
+    .avatar-img{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);object-fit:cover}
+
+    /* CTA / Form */
+    .cta{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;margin:40px auto 80px}
+    form{display:grid;gap:12px;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));padding:22px;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    label{font-size:12px;color:#b6bfe0}
+    input,textarea,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#0c1120;color:var(--txt);outline:none}
+    .btn.big{padding:14px 20px;font-size:16px;border-radius:16px}
+    .note{font-size:12px;color:var(--muted)}
+
+    footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-cards, .kpis, .steps, .usp, .testis{grid-template-columns:1fr 1fr}
+      .benefits, .cta{grid-template-columns:1fr}
+    }
+    @media (max-width: 620px){
+      .hero-cards, .kpis, .steps, .usp, .testis{grid-template-columns:1fr}
+      .nav .hide-sm{display:none}
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <span>{{NOMBRE_PRODUCTO}}</span>
+    </div>
+    <nav class="nav-cta">
+      <a href="#beneficios" class="btn hide-sm">Beneficios</a>
+      <a href="#como-funciona" class="btn hide-sm">Cómo funciona</a>
+      <a href="#cta" class="btn primary">Probar ahora</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO / ANTES -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="badge">Marco BAB · <strong style="margin-left:6px">Antes</strong></div>
+        <h1>De <span style="color:var(--danger)">frustración</span> a <span style="color:var(--success)">dominio</span>: resuelve <u>hoy</u> el problema de {{PUNTO_DE_DOLOR_PRINCIPAL}}</h1>
+        <p class="lead">Tu audiencia objetivo — {{AUDIENCIA}} — hoy enfrenta {{DOLOR_1}}, {{DOLOR_2}} y {{DOLOR_3}}. Pierden tiempo, dinero y oportunidades por procesos manuales, herramientas dispersas y falta de claridad. <strong>{{NOMBRE_PRODUCTO}}</strong> existe para cambiar ese guion.</p>
+
+        <div class="hero-cards">
+          <article class="card">
+            <span class="tag">Síntoma 01</span>
+            <h3><span class="icon"></span>Desorden y tareas repetitivas</h3>
+            <p>Planillas, copias y pasos manuales que multiplican errores y retrasos.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Síntoma 02</span>
+            <h3><span class="icon"></span>Falta de visibilidad</h3>
+            <p>No sabes qué está funcionando y qué no; las decisiones se toman a ciegas.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Síntoma 03</span>
+            <h3><span class="icon"></span>Experiencias poco memorables</h3>
+            <p>Clientes confusos, tiempos de respuesta lentos y oportunidades perdidas.</p>
+          </article>
+        </div>
+
+        
+
+        <a href="#despues" class="btn primary big" style="margin-top:18px">Ver el futuro con {{NOMBRE_PRODUCTO}}</a>
+      </div>
+
+      <!-- Media hero -->
+      <div class="hero-media">
+        <figure class="hero-frame">
+          <img class="hero-img" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80&fm=webp" alt="Vista futurista del producto" loading="eager"/>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESPUÉS / BENEFICIOS -->
+  <section id="despues" class="wrap" style="padding:40px 0 16px">
+    <div class="badge">Marco BAB · <strong style="margin-left:6px">Después</strong></div>
+    <h2 style="margin:12px 0 8px;font-size: clamp(28px, 3.4vw, 42px);font-family:Orbitron">Así luce el estado ideal</h2>
+    <p class="lead">Imagina operaciones fluidas, métricas en tiempo real y clientes que recomiendan tu marca. Con <strong>{{NOMBRE_PRODUCTO}}</strong> pasas de apagar incendios a escalar con confianza.</p>
+
+    <div class="benefits" id="beneficios">
+      <div>
+        <div class="kpis">
+          <div class="kpi"><strong>−{{KPI_1}}%</strong><span>Tiempo operativo</span></div>
+          <div class="kpi"><strong>+{{KPI_2}}%</strong><span>Tasa de conversión</span></div>
+          <div class="kpi"><strong>+{{KPI_3}}%</strong><span>Satisfacción del cliente</span></div>
+        </div>
+        <ul style="margin:16px 0 0;color:var(--muted);line-height:1.8">
+          <li>Automatización inteligente que elimina trabajo repetitivo.</li>
+          <li>Panel unificado con insights accionables.</li>
+          <li>Experiencias consistentes, rápidas y memorables.</li>
+        </ul>
+      </div>
+      <!-- Visual de beneficios -->
+      <figure class="benefit-visual">
+        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1400&q=80&fm=webp" alt="Panel, dashboards e integraciones en acción" loading="lazy"/>
+      </figure>
+    </div>
+
+    <div class="wrap" style="padding:0">
+      <div class="card" style="margin-top:6px">
+        <h3 style="margin-top:0">Historia de éxito</h3>
+        <p>“Con {{NOMBRE_PRODUCTO}} reducimos el tiempo de entrega en {{KPI_1}}% y aumentamos ventas en {{KPI_2}}%. Ahora escalamos sin fricción.”</p>
+        <div class="who" style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80&fm=webp" alt="avatar cliente" loading="lazy"/>
+          <div>
+            <strong>Nombre Cliente</strong><br><span class="note">Empresa / Sector</span>
+          </div>
+          <img src="{{TESTI_1_LOGO_URL}}" alt="logo empresa" loading="lazy" style="margin-left:auto;max-height:24px;opacity:.8"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUENTE / CÓMO FUNCIONA -->
+  <section id="como-funciona" class="wrap" style="padding:18px 0 12px">
+    <div class="badge">Marco BAB · <strong style="margin-left:6px">Puente</strong></div>
+    <h2 style="margin:12px 0 8px;font-size: clamp(28px, 3.4vw, 42px);font-family:Orbitron">Cómo {{NOMBRE_PRODUCTO}} te lleva del punto A al B</h2>
+    <p class="lead">La arquitectura de {{NOMBRE_PRODUCTO}} orquesta datos, flujos y personas para acelerar resultados desde el día uno.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span>1</span>
+        <h3>Diagnóstico guiado</h3>
+        <p class="note">En minutos mapeamos tus cuellos de botella y priorizamos quick wins.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=900&q=80&fm=webp" alt="diagnóstico" loading="lazy"/>
+      </div>
+      <div class="step">
+        <span>2</span>
+        <h3>Implementación sin fricción</h3>
+        <p class="note">Integraciones plug‑and‑play con tus herramientas actuales.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80&fm=webp" alt="implementación" loading="lazy"/>
+      </div>
+      <div class="step">
+        <span>3</span>
+        <h3>Optimización continua</h3>
+        <p class="note">IA/automatización que aprende de tu operación y mejora cada semana.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80&fm=webp" alt="optimización" loading="lazy"/>
+      </div>
+    </div>
+
+    <div class="usp">
+      <article class="card">
+        <h3>USP #1 — {{PROPUESTA_UNICA_1}}</h3>
+        <p class="note">Algo que nadie más ofrece con el mismo enfoque/velocidad/precisión.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80&fm=webp" alt="usp 1" loading="lazy"/>
+      </article>
+      <article class="card">
+        <h3>USP #2 — {{PROPUESTA_UNICA_2}}</h3>
+        <p class="note">El diferenciador clave que te posiciona por encima de alternativas.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80&fm=webp" alt="usp 2" loading="lazy"/>
+      </article>
+      <article class="card">
+        <h3>USP #3 — {{PROPUESTA_UNICA_3}}</h3>
+        <p class="note">Valor tangible, medible y difícil de replicar.</p>
+        <img class="usp-img" src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=800&q=80&fm=webp" alt="usp 3" loading="lazy"/>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRUEBA SOCIAL -->
+  <section class="wrap" style="padding:10px 0 20px">
+    <h2 style="margin:12px 0 8px;font-size: clamp(24px, 3vw, 36px);font-family:Orbitron">Equipos que ya confían</h2>
+    <div class="testis">
+      <div class="testi">
+        <p>“Onboarding en horas, no semanas. El impacto se ve desde el día uno.”</p>
+        <div class="who">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=160&q=80&fm=webp" alt="cliente" loading="lazy"/>
+          <span>COO · SaaS B2B</span>
+        </div>
+      </div>
+      <div class="testi">
+        <p>“Centralizamos procesos y triplicamos la velocidad de respuesta al cliente.”</p>
+        <div class="who">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&q=80&fm=webp" alt="cliente" loading="lazy"/>
+          <span>Head of CS · E‑commerce</span>
+        </div>
+      </div>
+      <div class="testi">
+        <p>“La visibilidad en tiempo real nos permitió optimizar campañas y reducir CAC.”</p>
+        <div class="who">
+          <img class="avatar-img" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=form" alt="cliente" loading="lazy"/>
+          <span>CMO · Retail</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta" class="wrap cta">
+    <div>
+      <h2 style="margin:0 0 10px;font-size: clamp(28px, 3.4vw, 42px);font-family:Orbitron">Listo para pasar del <span style="color:var(--danger)">Antes</span> al <span style="color:var(--success)">Después</span>?</h2>
+      <p class="lead">Agenda una demo personalizada y descubre cómo {{NOMBRE_PRODUCTO}} acelera {{OBJETIVO_PRINCIPAL}} en {{TIEMPO_PROMESA}}.</p>
+      <ul style="color:var(--muted);line-height:1.9">
+        <li>✅ Implementación guiada sin código</li>
+        <li>✅ Soporte humano + IA 24/7</li>
+        <li>✅ Garantía de valor en 30 días</li>
+      </ul>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <a href="#form" class="btn primary big">Quiero mi demo</a>
+        <a href="#" class="btn big">Ver casos de éxito</a>
+      </div>
+    </div>
+
+    <form id="form" action="#" method="post" autocomplete="on">
+      <div>
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" name="nombre" placeholder="Tu nombre" required>
+      </div>
+      <div>
+        <label for="email">Correo</label>
+        <input id="email" name="email" type="email" placeholder="tucorreo@empresa.com" required>
+      </div>
+      <div>
+        <label for="empresa">Empresa</label>
+        <input id="empresa" name="empresa" placeholder="Nombre de tu empresa">
+      </div>
+      <div>
+        <label for="mensaje">¿Qué quieres lograr?</label>
+        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos brevemente tus objetivos"></textarea>
+      </div>
+      <button class="btn primary big" type="submit">Agendar mi demo</button>
+      <span class="note">Al continuar aceptas nuestra Política de Privacidad.</span>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div>© <span id="year"></span> {{NOMBRE_EMPRESA}}. Todos los derechos reservados.</div>
+    <div class="note">Hecho con ♥ en modo futurista • <a href="#">Privacidad</a> • <a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+  // Año dinámico
+  document.getElementById('year').textContent = new Date().getFullYear();
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click', e=>{
+    const el = document.querySelector(a.getAttribute('href'));
+    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }))
+</script>
+
+
+</body>
+</html>
